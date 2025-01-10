@@ -1,22 +1,4 @@
 <main>
-  @for(items of rootLists; track items)
-  {
-    @for(j of items; track j)
-    {
-      <p>root list {{j.listIndex}}</p>
-      <p>label: {{j.label}}</p>
-      <p>parent: {{j.parentId ? j.parentId : 0}}</p>
-      <p>id: {{j.id ? j.id : 0}}</p>
-      <input type="text" [(ngModel)]="inp">
-      <button (click)="createNewSubListArr(j.listIndex, j, inp)">add list</button>
-      <button (click)="deleteList(j.listIndex, j)">remove all list including this one</button>
-    }
-  }
-  <div>
-    <input type="text" [(ngModel)]="inp">
-    <button (click)="createNewListArr(inp)">
-      <h5>Click to add new list from root</h5>
-    </button>
-  </div>
+  <app-recursive-revealer [data]="parentNodes"></app-recursive-revealer>
 </main>
 <router-outlet />
