@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
-import { linkedlistChildren } from '../ImpClass/linkedList';
+import { linkedlistChildren, linkedListNoChild } from '../ImpClass/linkedList';
 
 @Component({
   selector: 'app-recursive-revealer',
@@ -9,8 +9,8 @@ import { linkedlistChildren } from '../ImpClass/linkedList';
   styleUrl: './recursive-revealer.component.scss'
 })
 export class RecursiveRevealerComponent {
-  @Input() data!: linkedlistChildren[];
-  onFlip(l: linkedlistChildren)
+  @Input() data!: linkedListNoChild[];
+  onFlip(l: linkedListNoChild)
   {
     l.isDisplay = !l.isDisplay;
     console.log(l)

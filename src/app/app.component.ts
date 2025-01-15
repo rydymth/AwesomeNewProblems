@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { linkedlist, linkedlistChildren } from './ImpClass/linkedList';
+import { linkedlist, linkedlistChildren, linkedListNoChild } from './ImpClass/linkedList';
 import {FormsModule} from '@angular/forms';
 import { RecursiveRevealerComponent } from './recursive-revealer/recursive-revealer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, RecursiveRevealerComponent],
+  imports: [RouterOutlet, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
   title = 'linkedlist';
-  list: linkedlistChildren[] = []
-  parentNodes: linkedlistChildren[] = []
+  list: linkedListNoChild[] = []
+  parentNodes: linkedListNoChild[] = []
   /*
   idSeed: number = 0
   listSeed: number = 0
@@ -133,15 +133,15 @@ export class AppComponent implements OnInit{
   reformat() {
     this.mainArr.map(obj => {
       this.list.push({
-        ...obj, children: [], isRoot: false, isDisplay: false
+        ...obj, isRoot: false, isDisplay: false, children: []
       })
     })
   }
   
   getTreeStruct()
   {
-    let addChild = (obj: linkedlistChildren) => {
-      this.list.find(p => p.id === obj.parentId)?.children.push(obj);
+    let addChild = (obj: linkedListNoChild) => {
+      this.list.find(p => p.id === obj.parentId)?.children.push(obj.id);
     }
     this.list.map(obj => {
       if (obj.parentId === null)
@@ -155,7 +155,28 @@ export class AppComponent implements OnInit{
     })
   }
   
-
+  hideSelfAndContained(i: number)
+  {
+    this.list.filter(obj => obj.id === i).map(obj => {
+      obj.children.map(ind => this.list.filter(l => l.id === ind).map(l => {
+        l.isDisplay = false
+        this.hideSelfAndContained(l.id)
+      }
+      ))
+    })
+    console.log(this.list)
+  }
+  
+  showSelfAndChildren(i: number)
+  {
+    this.list.filter(obj => obj.id === i).map(obj => {
+      obj.children.map(ind => this.list.filter(l => l.id === ind).map(l => {
+        l.isDisplay = true
+      }))
+    })
+    console.log(this.list)
+  }
+  
   ngOnInit(): void {
     this.reformat()
     this.getTreeStruct()

@@ -1,6 +1,0 @@
-<div *ngFor="let list of data; let i = index" style="display: flex;">
-    <button (click)="onFlip(list)">{{list.id}}</button>
-    <div *ngIf="list.isDisplay" class="revealContent">
-        <app-recursive-revealer [data]="list.children"></app-recursive-revealer>
-    </div>
-</div>

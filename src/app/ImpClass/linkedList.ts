@@ -26,3 +26,19 @@ export interface linkedlistChildren{
       children: linkedlistChildren[]
       isDisplay: boolean
 }
+
+export interface linkedListNoChild{
+      _id: string,
+      id: number,
+      parentId: number | null,
+      label: string,
+      routeLink: string,
+      icon: string | null,
+      expanded: boolean,
+      checkList: null | string[],
+      isBoth: boolean,
+      __v: number,
+      isRoot: boolean,
+      isDisplay: boolean,
+      children: number[]
+}
